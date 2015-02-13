@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
-        var viewController = ViewController()
+        var viewController = PMSideMenuViewController()
         var navController = UINavigationController(rootViewController: viewController)
 
         window?.rootViewController = navController

@@ -7,10 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F1C33C51A8DFE510006EFEE /* PMColorGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1C33C41A8DFE510006EFEE /* PMColorGradientView.swift */; };
+		9F1C33C71A8DFE660006EFEE /* PMColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1C33C61A8DFE660006EFEE /* PMColorModel.swift */; };
+		9F1C33CB1A8DFEA40006EFEE /* PMSideMenuBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1C33CA1A8DFEA40006EFEE /* PMSideMenuBaseViewController.swift */; };
+		9F1C33CD1A8DFEDE0006EFEE /* PMSideMenuUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1C33CC1A8DFEDE0006EFEE /* PMSideMenuUserCell.swift */; };
+		9F1C33CF1A8DFEFC0006EFEE /* PMSideMenuListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1C33CE1A8DFEFC0006EFEE /* PMSideMenuListView.swift */; };
 		9FD851211A8DF5410029DD49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD851201A8DF5410029DD49 /* AppDelegate.swift */; };
 		9FD851231A8DF5410029DD49 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD851221A8DF5410029DD49 /* ViewController.swift */; };
 		9FD851281A8DF5410029DD49 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD851271A8DF5410029DD49 /* Images.xcassets */; };
 		9FD851371A8DF5410029DD49 /* PMSideMenuView_DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD851361A8DF5410029DD49 /* PMSideMenuView_DemoTests.swift */; };
+		9FD851421A8DF6E50029DD49 /* PMSideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD851411A8DF6E50029DD49 /* PMSideMenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,6 +30,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F1C33C41A8DFE510006EFEE /* PMColorGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PMColorGradientView.swift; path = PMSideMenuViewController/Color/PMColorGradientView.swift; sourceTree = "<group>"; };
+		9F1C33C61A8DFE660006EFEE /* PMColorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PMColorModel.swift; path = PMSideMenuViewController/Color/PMColorModel.swift; sourceTree = "<group>"; };
+		9F1C33CA1A8DFEA40006EFEE /* PMSideMenuBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PMSideMenuBaseViewController.swift; path = PMSideMenuViewController/PMSideMenuBaseViewController.swift; sourceTree = "<group>"; };
+		9F1C33CC1A8DFEDE0006EFEE /* PMSideMenuUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PMSideMenuUserCell.swift; path = PMSideMenuViewController/Cell/PMSideMenuUserCell.swift; sourceTree = "<group>"; };
+		9F1C33CE1A8DFEFC0006EFEE /* PMSideMenuListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PMSideMenuListView.swift; path = PMSideMenuViewController/PMSideMenuListView.swift; sourceTree = "<group>"; };
 		9FD8511B1A8DF5410029DD49 /* PMSideMenuView_Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMSideMenuView_Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD8511F1A8DF5410029DD49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FD851201A8DF5410029DD49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +43,7 @@
 		9FD851301A8DF5410029DD49 /* PMSideMenuView_DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PMSideMenuView_DemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD851351A8DF5410029DD49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FD851361A8DF5410029DD49 /* PMSideMenuView_DemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMSideMenuView_DemoTests.swift; sourceTree = "<group>"; };
+		9FD851411A8DF6E50029DD49 /* PMSideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PMSideMenuViewController.swift; path = PMSideMenuViewController/PMSideMenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,9 +64,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F1C33C21A8DFE270006EFEE /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				9F1C33C41A8DFE510006EFEE /* PMColorGradientView.swift */,
+				9F1C33C61A8DFE660006EFEE /* PMColorModel.swift */,
+			);
+			name = Color;
+			sourceTree = "<group>";
+		};
+		9F1C33C31A8DFE2E0006EFEE /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9F1C33CC1A8DFEDE0006EFEE /* PMSideMenuUserCell.swift */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		9FD851121A8DF5410029DD49 = {
 			isa = PBXGroup;
 			children = (
+				9FD851401A8DF68B0029DD49 /* PMSideMenuViewController */,
 				9FD8511D1A8DF5410029DD49 /* PMSideMenuView_Demo */,
 				9FD851331A8DF5410029DD49 /* PMSideMenuView_DemoTests */,
 				9FD8511C1A8DF5410029DD49 /* Products */,
@@ -104,6 +134,18 @@
 				9FD851351A8DF5410029DD49 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9FD851401A8DF68B0029DD49 /* PMSideMenuViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F1C33C21A8DFE270006EFEE /* Color */,
+				9F1C33C31A8DFE2E0006EFEE /* Cell */,
+				9FD851411A8DF6E50029DD49 /* PMSideMenuViewController.swift */,
+				9F1C33CA1A8DFEA40006EFEE /* PMSideMenuBaseViewController.swift */,
+				9F1C33CE1A8DFEFC0006EFEE /* PMSideMenuListView.swift */,
+			);
+			name = PMSideMenuViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,8 +246,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F1C33CB1A8DFEA40006EFEE /* PMSideMenuBaseViewController.swift in Sources */,
+				9F1C33CF1A8DFEFC0006EFEE /* PMSideMenuListView.swift in Sources */,
+				9F1C33CD1A8DFEDE0006EFEE /* PMSideMenuUserCell.swift in Sources */,
 				9FD851231A8DF5410029DD49 /* ViewController.swift in Sources */,
+				9F1C33C51A8DFE510006EFEE /* PMColorGradientView.swift in Sources */,
 				9FD851211A8DF5410029DD49 /* AppDelegate.swift in Sources */,
+				9F1C33C71A8DFE660006EFEE /* PMColorModel.swift in Sources */,
+				9FD851421A8DF6E50029DD49 /* PMSideMenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +430,7 @@
 				9FD8513C1A8DF5410029DD49 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9FD8513D1A8DF5410029DD49 /* Build configuration list for PBXNativeTarget "PMSideMenuView_DemoTests" */ = {
 			isa = XCConfigurationList;
@@ -390,6 +439,7 @@
 				9FD8513F1A8DF5410029DD49 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
