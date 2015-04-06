@@ -8,14 +8,20 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: PMSideMenuBaseViewController {
+
+    var titleLabel : UILabel = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        self.view.backgroundColor = UIColor.lightGrayColor()
-        self.title = "Demo"
+        titleLabel = UILabel(frame: CGRectMake(0, 0, self.view.frame.width, 40))
+        titleLabel.backgroundColor = UIColor.clearColor()
+        titleLabel.textAlignment = NSTextAlignment.Center
+        titleLabel.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2)
+        titleLabel.text = self.title
+        self.view.addSubview(titleLabel)
     }
 
     override func didReceiveMemoryWarning() {

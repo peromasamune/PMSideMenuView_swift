@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, PMSideMenuViewControllerDelegate {
 
     var window: UIWindow?
 
@@ -18,10 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
-        var viewController = PMSideMenuViewController()
-        var navController = UINavigationController(rootViewController: viewController)
+        var viewController = PMSideMenuViewController.sharedController
+        viewController.delegate = self
+        viewController.currentSideMenuIndex = 1
 
-        window?.rootViewController = navController
+        window?.rootViewController = viewController
         window?.makeKeyAndVisible()
 
         return true
@@ -49,6 +50,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    // MARK : - PMSideMenuViewControllerDelegate
 
+    func PMSideMenuViewNumberOfSideMenuListItems() -> NSInteger {
+        return 4
+    }
+
+    func PMSideMenuListItemAtIndex(index: NSInteger) -> PMSideMenuListItem? {
+
+        if (index == 0){
+            var item : PMSideMenuListItem = PMSideMenuListItem.itemWith("PMSideMenuView", image: "icon.jpg")
+            item.type = PMSideMenuListItemType.CircleImage
+            item.cellHeight = 200;
+            return item
+        }
+
+        if (index == 1){
+            return PMSideMenuListItem.itemWith("Menu 1", image: "menu")
+        }
+
+        if (index == 2){
+            return PMSideMenuListItem.itemWith("Menu 2", image: "menu")
+        }
+
+        if (index == 3){
+            return PMSideMenuListItem.itemWith("Menu 3", image: "menu")
+        }
+
+        return nil
+    }
+
+    func PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(viewController: PMSideMenuViewController, index: NSInteger) -> UIViewController? {
+
+        if (index == 0){
+            return nil
+        }
+
+        var itemViewController = ViewController()
+        itemViewController.title = NSString(format: "Menu %ld", index)
+
+        return itemViewController
+    }
 }
 
