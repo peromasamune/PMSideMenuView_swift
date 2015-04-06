@@ -14,9 +14,9 @@ swift based popular side menu view.
 
 ##
 
- - Create object and set to window
- 
- ```swift
+- Create object and set to window
+
+```swift
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
