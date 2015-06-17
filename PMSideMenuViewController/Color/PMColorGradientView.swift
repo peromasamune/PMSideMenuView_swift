@@ -20,7 +20,7 @@ class PMColorGradientView: UIView {
 
         self.gradientLayer = CAGradientLayer()
         self.gradientLayer?.frame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))
-        self.gradientLayer?.colors = PMColorModel.getNearRandomColorsForGradient()
+        self.gradientLayer?.colors = PMColorModel.getNearRandomColorsForGradient() as [AnyObject]
         self.gradientLayer?.startPoint = CGPointMake(0.5, 0.0)
         self.gradientLayer?.endPoint = CGPointMake(0.5, 1.0)
 

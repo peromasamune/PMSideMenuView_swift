@@ -35,7 +35,7 @@ class PMColorModel: NSObject {
         let random : Int = Int(arc4random()) % colorArray.count
 
         if(colorArray.count > random){
-            return colorArray.objectAtIndex(random) as UIColor
+            return colorArray.objectAtIndex(random) as! UIColor
         }
 
         return UIColor.whiteColor()
@@ -55,8 +55,8 @@ class PMColorModel: NSObject {
             random2 = 0
         }
 
-        let color1 : UIColor = colorArray.objectAtIndex(random1) as UIColor
-        let color2 : UIColor = colorArray.objectAtIndex(random2) as UIColor
+        let color1 : UIColor = colorArray.objectAtIndex(random1) as! UIColor
+        let color2 : UIColor = colorArray.objectAtIndex(random2) as! UIColor
 
         return [color1.CGColor, color2.CGColor]
     }
