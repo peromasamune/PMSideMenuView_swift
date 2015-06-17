@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PMSideMenuViewControllerD
         }
 
         var itemViewController = ViewController()
-        itemViewController.title = NSString(format: "Menu %ld", index)
+        itemViewController.title = "Menu \(index)"
 
         return itemViewController
     }
