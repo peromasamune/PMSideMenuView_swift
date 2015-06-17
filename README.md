@@ -4,6 +4,8 @@
 
 ![Screen1](https://github.com/peromasamune/PMSideMenuView/blob/master/screens/screen1.png?raw=true)
 
+`Work with swift version 1.2`
+
 swift based popular side menu view.  
 
 - Support pan gesture open/close menu
