@@ -179,7 +179,7 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
     }
 
     // MARK : - Touch Event
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         if (self.isAnimation == true){
             return;
         }
@@ -196,7 +196,7 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var item : PMSideMenuListItem = itemArray.objectAtIndex(indexPath.row) as PMSideMenuListItem
+        var item : PMSideMenuListItem = itemArray.objectAtIndex(indexPath.row) as! PMSideMenuListItem
         if item.cellHeight > 0 {
             return item.cellHeight
         }
@@ -207,14 +207,14 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
         let CellIdentifier = "Cell"
         let UserCellIdentifier = "UserCell"
 
-        var item : PMSideMenuListItem = itemArray.objectAtIndex(indexPath.row) as PMSideMenuListItem
+        var item : PMSideMenuListItem = itemArray.objectAtIndex(indexPath.row) as! PMSideMenuListItem
 
         if item.type == PMSideMenuListItemType.Default {
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: CellIdentifier)
 
-            cell.textLabel?.text = item.title;
-            if item.imageUrl != nil{
-                cell.imageView?.image = UIImage(named: item.imageUrl!)
+            cell.textLabel?.text = item.title
+            if let imageUrl = item.imageUrl {
+                cell.imageView?.image = UIImage(named: imageUrl)
             }
 
             return cell
@@ -224,11 +224,8 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
             let userCell : PMSideMenuUserCell = PMSideMenuUserCell(style: UITableViewCellStyle.Default, reuseIdentifier: UserCellIdentifier)
 
             userCell.userNameLabel.text = item.title
-            if item.imageUrl != nil{
-                let image = UIImage(named: item.imageUrl!)
-                if image != nil {
-                    userCell.iconImageView.setImage(image)
-                }
+            if let imageUrl = item.imageUrl {
+                userCell.iconImageView.setImage(UIImage(named: imageUrl))
             }
             userCell.selectionStyle = UITableViewCellSelectionStyle.None
 
