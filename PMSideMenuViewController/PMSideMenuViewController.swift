@@ -11,7 +11,7 @@ import UIKit
 protocol PMSideMenuViewControllerDelegate {
     func PMSideMenuViewNumberOfSideMenuListItems() -> NSInteger
     func PMSideMenuListItemAtIndex(index : NSInteger) -> PMSideMenuListItem?
-    func PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(viewController : PMSideMenuViewController, index : NSInteger) -> UIViewController?
+    func PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(viewController : PMSideMenuViewController, index : NSInteger) -> PMSideMenuBaseViewController?
 }
 
 private let ANIMATION_DURATION : Double = 0.2
@@ -27,22 +27,6 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
     private var contentsNavigationController : UINavigationController = UINavigationController()
     private var sideMenuListView : PMSideMenuListView! = PMSideMenuListView(frame: CGRectZero)
     private var gradientView : PMColorGradientView! = PMColorGradientView(frame: CGRectZero)
-
-    // MARK : - Static Method
-    class var sharedController : PMSideMenuViewController{
-        get{
-            struct Static {
-                static var instance : PMSideMenuViewController? = nil
-                static var token : dispatch_once_t = 0
-            }
-
-            dispatch_once(&Static.token, { () -> Void in
-                Static.instance = PMSideMenuViewController()
-            })
-
-            return Static.instance!
-        }
-    }
 
     // MARK : - Initializer
     override func viewDidLoad() {
@@ -74,7 +58,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         self.addChildViewController(self.contentsNavigationController)
         self.view.addSubview(self.contentsNavigationController.view)
 
-        var viewController : UIViewController? = self.getViewControllerFromSideMenuIndex(self.currentSideMenuIndex)
+        var viewController = self.getViewControllerFromSideMenuIndex(self.currentSideMenuIndex)
         self.setContentViewController(viewController)
 
         self.sideMenuListView = PMSideMenuListView(frame: self.view.bounds)
@@ -100,7 +84,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
 
     //MARK : - Class Method
     func transitionToSpecificViewControllerFrimSideMenuType(type : NSInteger){
-        var viewController : UIViewController? = self.getViewControllerFromSideMenuIndex(type)
+        var viewController = self.getViewControllerFromSideMenuIndex(type)
 
         if(self.sideMenuListView?.isVisible == true){
             self.setSideMenuHidden(true, animated: true)
@@ -152,13 +136,14 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
     }
 
     //MARK : - Private Method
-    private func getViewControllerFromSideMenuIndex(index : NSInteger) -> UIViewController?{
-        var viewController : UIViewController? = self.delegate.PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(self, index: index)
+    private func getViewControllerFromSideMenuIndex(index : NSInteger) -> PMSideMenuBaseViewController?{
+        var viewController = self.delegate.PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(self, index: index)
         return viewController
     }
 
-    private func setContentViewController(viewController : UIViewController?){
+    private func setContentViewController(viewController : PMSideMenuBaseViewController?){
         if (viewController != nil){
+            viewController?.sideMenu = self
             self.contentsNavigationController.viewControllers = [viewController!]
         }
     }

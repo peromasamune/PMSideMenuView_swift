@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PMSideMenuViewControllerD
 
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
-        var viewController = PMSideMenuViewController.sharedController
+        var viewController = PMSideMenuViewController()
         viewController.delegate = self
         viewController.currentSideMenuIndex = 1
 
@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PMSideMenuViewControllerD
         return nil
     }
 
-    func PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(viewController: PMSideMenuViewController, index: NSInteger) -> UIViewController? {
+    func PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(viewController: PMSideMenuViewController, index: NSInteger) -> PMSideMenuBaseViewController? {
 
         if (index == 0){
             return nil
