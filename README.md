@@ -23,7 +23,7 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
-        var viewController = PMSideMenuViewController.sharedController
+        var viewController = PMSideMenuViewController()
         viewController.delegate = self
         viewController.currentSideMenuIndex = 1
 
@@ -39,7 +39,7 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 ```swift
     func PMSideMenuViewNumberOfSideMenuListItems() -> NSInteger
     func PMSideMenuListItemAtIndex(index : NSInteger) -> PMSideMenuListItem?
-    func PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(viewController : PMSideMenuViewController, index : NSInteger) -> UIViewController?
+    func PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(viewController : PMSideMenuViewController, index : NSInteger) -> PMSideMenuBaseViewController?
 ```
 
 __Examples__
@@ -73,7 +73,7 @@ func PMSideMenuViewNumberOfSideMenuListItems() -> NSInteger {
         return nil
     }
 
-    func PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(viewController: PMSideMenuViewController, index: NSInteger) -> UIViewController? {
+    func PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(viewController: PMSideMenuViewController, index: NSInteger) -> PMSideMenuBaseViewController? {
 
         if (index == 0){
             return nil
