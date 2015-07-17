@@ -10,6 +10,8 @@ import UIKit
 
 class PMSideMenuBaseViewController: UIViewController {
 
+    weak var sideMenu : PMSideMenuViewController?
+
     // MARK : - Initializer
 
     override func viewDidLoad() {
@@ -33,7 +35,7 @@ class PMSideMenuBaseViewController: UIViewController {
     // MARK : - Button Actions
     
     func toggleSideMenuButtonDidPush(sender : UIButton){
-        PMSideMenuViewController.sharedController.toggleSideMenu()
+        sideMenu?.toggleSideMenu()
     }
 
 }
