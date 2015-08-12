@@ -18,17 +18,17 @@ private let ANIMATION_DURATION : Double = 0.2
 
 class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UIGestureRecognizerDelegate {
 
-    // MARK : - Properties
-    // Public
-    var currentSideMenuIndex : NSInteger = 0
+    //MARK: - Properties
+    //Public
+    var currentSideMenuIndex : NSInteger = 0 
     var delegate : PMSideMenuViewControllerDelegate!
 
-    // Private
+    //Private
     private var contentsNavigationController : UINavigationController = UINavigationController()
     private var sideMenuListView : PMSideMenuListView! = PMSideMenuListView(frame: CGRectZero)
     private var gradientView : PMColorGradientView! = PMColorGradientView(frame: CGRectZero)
 
-    // MARK : - Initializer
+    //MARK: - Initializer
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -82,7 +82,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         // Dispose of any resources that can be recreated.
     }
 
-    //MARK : - Class Method
+    //MARK: - Class Method
     func transitionToSpecificViewControllerFrimSideMenuType(type : NSInteger){
         var viewController = self.getViewControllerFromSideMenuIndex(type)
 
@@ -135,7 +135,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         self.sideMenuListView.setSideMenuItems(sideMenuItemArray)
     }
 
-    //MARK : - Private Method
+    //MARK: - Private Method
     private func getViewControllerFromSideMenuIndex(index : NSInteger) -> PMSideMenuBaseViewController?{
         var viewController = self.delegate.PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(self, index: index)
         return viewController
@@ -192,7 +192,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         }
     }
 
-    // MARK : - SideMenuListViewDelegate
+    // MARK: - SideMenuListViewDelegate
 
     func PMSideMenuListViewDidSelectedItem(index: NSInteger) {
 
@@ -208,7 +208,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         self.setSideMenuHidden(true, animated: true)
     }
 
-    // MARK : - Gesture Action
+    // MARK: - Gesture Action
 
     func detectRightPanGesture(gesture : UIPanGestureRecognizer){
         self.sideMenuListView.setSideMenuWithGesture(gesture)
@@ -220,7 +220,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         self.transformContentViewScaleWithGesture(gesture)
     }
 
-    // MARK : - UIPanGestureRecognizerDelegate
+    // MARK: - UIPanGestureRecognizerDelegate
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
 
