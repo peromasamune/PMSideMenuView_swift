@@ -28,7 +28,7 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
 
     // MARK : - Property
     // Public
-    var contentView : UIView!
+    var contentView : FLBlurView!
     var isVisible : Bool! = false
     var isAnimation : Bool! = false
     var currentSelectedIndex : NSInteger! = 0
@@ -50,8 +50,8 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
         isAnimation = false;
         currentSelectedIndex = 0
 
-        contentView = UIView()
-        contentView.backgroundColor = UIColor(white: 1.000, alpha: 0.9)
+        contentView = FLBlurView()
+        //contentView.backgroundColor = UIColor(white: 1.000, alpha: 0.9)
         contentView.layer.shadowColor = UIColor.blackColor().CGColor
         contentView.layer.shadowOffset = CGSizeMake(3.0, 3.0)
         contentView.layer.shadowOpacity = 0.3
@@ -68,6 +68,10 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
     }
 
     // MARK : - Class Method
@@ -102,7 +106,7 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
                 frame.origin.x = -frame.size.width
                 self.contentView.frame = frame
                 self.backgroundColor = UIColor(white: 0.000, alpha: 0.0)
-
+                
                 }, completion: { (finished : Bool) -> Void in
 
                     self.alpha = 0.0
@@ -115,7 +119,7 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
                 var frame : CGRect = self.contentView.frame
                 frame.origin.x = 0
                 self.contentView.frame = frame
-                self.backgroundColor = UIColor(white: 0.000, alpha: 0.3)
+                self.backgroundColor = UIColor(white: 0.000, alpha: 0.1)
 
                 }, completion: { (finished : Bool) -> Void in
                     self.isAnimation = false
@@ -150,8 +154,8 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
             self.contentView.frame = contentViewRect
 
             self.gestureRatio = ((contentViewRect.origin.x + self.contentView.frame.size.width) / self.contentView.frame.size.width)
-            self.backgroundColor = UIColor(white: 0.000, alpha: self.gestureRatio * 0.3)
-
+            self.backgroundColor = UIColor(white: 0.000, alpha: self.gestureRatio * 0.1)
+            
             previousPoint = motionPoint
             lastMotionDiff = motionDiff
         }
@@ -176,6 +180,7 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
     private func reloadFrame(){
         self.contentView.frame = CGRectMake((self.alpha > 0.0) ? 0 : -ITEM_WIDTH, 0, ITEM_WIDTH, self.frame.size.height)
         self.tableView?.frame = CGRectMake(0, 0, self.contentView.frame.size.width, self.contentView.frame.size.height)
+        self.tableView?.reloadData()
     }
 
     // MARK : - Touch Event
@@ -209,12 +214,22 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
 
         var item : PMSideMenuListItem = itemArray.objectAtIndex(indexPath.row) as! PMSideMenuListItem
 
+        let mode = FLDayAndNightUtility.currentMode()
+        
         if item.type == PMSideMenuListItemType.Default {
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: CellIdentifier)
 
+            if mode == .Noon {
+                cell.textLabel?.textColor = UIColor.blackColor()
+            }else{
+                cell.textLabel?.textColor = UIColor.whiteColor()
+            }
+            
             cell.textLabel?.text = item.title
             if let imageUrl = item.imageUrl {
-                cell.imageView?.image = UIImage(named: imageUrl)
+                if imageUrl.length > 0 {
+                    cell.imageView?.image = UIImage(named: imageUrl)
+                }
             }
 
             return cell
@@ -223,9 +238,15 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
         if item.type == PMSideMenuListItemType.CircleImage {
             let userCell : PMSideMenuUserCell = PMSideMenuUserCell(style: UITableViewCellStyle.Default, reuseIdentifier: UserCellIdentifier)
 
+            if mode == .Noon {
+                userCell.userNameLabel.textColor = UIColor.blackColor()
+            }else{
+                userCell.userNameLabel.textColor = UIColor.whiteColor()
+            }
+            
             userCell.userNameLabel.text = item.title
             if let imageUrl = item.imageUrl {
-                userCell.iconImageView.setImage(UIImage(named: imageUrl))
+                userCell.iconImageView.setImage(imageUrl)
             }
             userCell.selectionStyle = UITableViewCellSelectionStyle.None
 
@@ -239,6 +260,12 @@ class PMSideMenuListView: UIView, UITableViewDelegate, UITableViewDataSource{
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
+        if let item = itemArray.objectAtIndex(indexPath.row) as? PMSideMenuListItem {
+            if item.type == PMSideMenuListItemType.CircleImage {
+                return
+            }
+        }
+        
         self.delegate.PMSideMenuListViewDidSelectedItem(indexPath.row)
     }
 

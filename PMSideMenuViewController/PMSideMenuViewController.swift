@@ -22,9 +22,10 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
     //Public
     var currentSideMenuIndex : NSInteger = 0 
     var delegate : PMSideMenuViewControllerDelegate!
+    var sideMenuEnabled : Bool = true
 
     //Private
-    private var contentsNavigationController : UINavigationController = UINavigationController()
+    private var contentsNavigationController : UINavigationController = UINavigationController(navigationBarClass: FLNavigationBar.self, toolbarClass: nil)
     private var sideMenuListView : PMSideMenuListView! = PMSideMenuListView(frame: CGRectZero)
     private var gradientView : PMColorGradientView! = PMColorGradientView(frame: CGRectZero)
 
@@ -74,7 +75,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         leftPanGesture.delegate = self
         self.view.addGestureRecognizer(leftPanGesture)
 
-        self.reloadData()
+        self.updateAppearance()
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,6 +84,12 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
     }
 
     //MARK: - Class Method
+    func updateAppearance() {
+        self.reloadData()
+        
+        self.sideMenuListView.contentView.updateAppearance()
+    }
+    
     func transitionToSpecificViewControllerFrimSideMenuType(type : NSInteger){
         var viewController = self.getViewControllerFromSideMenuIndex(type)
 
@@ -96,6 +103,10 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
     }
 
     func setSideMenuHidden(hidden : Bool, animated : Bool){
+        
+        if self.sideMenuEnabled == false {
+            return
+        }
 
         if (hidden) {
             self.sideMenuListView?.setSideMenuHidden(hidden, animated: animated)
@@ -105,6 +116,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
                 self.transformContentViewScaleWithSideMenuHidden(hidden, animated: animated)
             })
         }else{
+            self.reloadData()
             self.transformContentViewScaleWithSideMenuHidden(hidden, animated: animated)
             let delayInSeconds = ANIMATION_DURATION * Double(NSEC_PER_SEC);
             let popTime : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds));
@@ -115,7 +127,12 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
     }
 
     func toggleSideMenu(){
-        if (self.sideMenuListView.isAnimation == true){
+        
+        if self.sideMenuEnabled == false {
+            return
+        }
+        
+        if self.sideMenuListView.isAnimation == true{
             return
         }
 
@@ -180,6 +197,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
     }
 
     private func transformContentViewScaleWithGesture(gesture : UIPanGestureRecognizer){
+        
         if (gesture.state == UIGestureRecognizerState.Changed){
             let ratio : CGFloat = self.sideMenuListView.gestureRatio
             let cRatio : CGFloat = (1 - ratio) * 0.1 + 0.9
@@ -224,6 +242,10 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
 
+        if self.sideMenuEnabled == false {
+            return false
+        }
+        
         if (self.sideMenuListView.isVisible == false){
             let touchPoint : CGPoint = touch.locationInView(self.view)
             if (touchPoint.x < 20){
