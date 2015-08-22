@@ -36,5 +36,12 @@ class PMColorGradientView: UIView {
 
         self.gradientLayer?.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))
     }
+    
+    //MARK: - Public Method
+    func reloadGradient() {
+        if self.gradientLayer != nil {
+            self.gradientLayer?.colors = PMColorModel.getNearRandomColorsForGradient() as [AnyObject]
+        }
+    }
 
 }

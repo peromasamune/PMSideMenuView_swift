@@ -49,7 +49,7 @@ class PMColorModel: NSObject {
 
         let colorArray : NSArray = PMColorModel.colorList()
 
-        let random1 : Int = Int(arc4random()) % colorArray.count
+        let random1 : Int = Int(arc4random() % UInt32(colorArray.count))
         var random2 : Int = random1 + 1
         if (random2 >= colorArray.count){
             random2 = 0

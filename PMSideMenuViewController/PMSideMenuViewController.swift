@@ -42,12 +42,15 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
 
         self.gradientView = PMColorGradientView(frame: self.view.frame)
         self.gradientView?.autoresizingMask = .FlexibleWidth | .FlexibleHeight
-        self.gradientView?.backgroundColor = UIColor.clearColor()
-        self.view.addSubview(self.gradientView!)
+//        self.gradientView?.backgroundColor = UIColor.clearColor()
+//        self.view.addSubview(self.gradientView!)
+        
+        var backgoundImageView = UIImageView(frame: self.view.bounds)
+        backgoundImageView.image = UIImage(named: FLDayAndNightUtility.converImageName("backImage"))
+        self.view.addSubview(backgoundImageView)
 
-        var bulrView = UIToolbar(frame: self.view.frame)
+        var bulrView = FLBlurView(frame: self.view.frame)
         bulrView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
-        bulrView.alpha = 0.5
         self.view.addSubview(bulrView)
 
         self.contentsNavigationController.view.frame = self.view.bounds
@@ -87,7 +90,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
     func updateAppearance() {
         self.reloadData()
         
-        self.sideMenuListView.contentView.updateAppearance()
+        //self.sideMenuListView.contentView.updateAppearance()
     }
     
     func transitionToSpecificViewControllerFrimSideMenuType(type : NSInteger){
@@ -100,6 +103,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         self.setContentViewController(viewController)
 
         self.currentSideMenuIndex = type
+        self.sideMenuListView.currentSelectedIndex = type
     }
 
     func setSideMenuHidden(hidden : Bool, animated : Bool){
@@ -151,6 +155,10 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         }
         self.sideMenuListView.setSideMenuItems(sideMenuItemArray)
     }
+    
+    func isSideMenuAnimation() -> Bool {
+        return self.sideMenuListView.isAnimation
+    }
 
     //MARK: - Private Method
     private func getViewControllerFromSideMenuIndex(index : NSInteger) -> PMSideMenuBaseViewController?{
@@ -175,7 +183,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
                     self.contentsNavigationController.view.frame = self.gradientView.frame
 
                     }, completion: { (finished : Bool) -> Void in
-
+                        
                 })
             }else{
                 self.contentsNavigationController.view.transform = CGAffineTransformIdentity
@@ -185,13 +193,21 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
             if (animated){
                 UIView.animateWithDuration(ANIMATION_DURATION, animations: { () -> Void in
 
-                    self.contentsNavigationController.view.transform = CGAffineTransformMakeScale(0.9, 0.9)
+                    self.contentsNavigationController.view.transform = CGAffineTransformMakeScale(0.7, 0.7)
+                    
+                    var frame = self.contentsNavigationController.view.frame
+                    frame.origin.x = 220
+                    self.contentsNavigationController.view.frame = frame
 
                     }, completion: { (finished : Bool) -> Void in
 
                 })
             }else{
-                self.contentsNavigationController.view.transform = CGAffineTransformMakeScale(0.9, 0.9)
+                self.contentsNavigationController.view.transform = CGAffineTransformMakeScale(0.7, 0.7)
+                
+                var frame = self.contentsNavigationController.view.frame
+                frame.origin.x = 220
+                self.contentsNavigationController.view.frame = frame
             }
         }
     }
@@ -200,9 +216,13 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         
         if (gesture.state == UIGestureRecognizerState.Changed){
             let ratio : CGFloat = self.sideMenuListView.gestureRatio
-            let cRatio : CGFloat = (1 - ratio) * 0.1 + 0.9
+            let cRatio : CGFloat = (1 - ratio) * 0.3 + 0.7
 
             self.contentsNavigationController.view.transform = CGAffineTransformMakeScale(cRatio, cRatio)
+            
+            var frame = self.contentsNavigationController.view.frame
+            frame.origin.x = 220 * ratio
+            self.contentsNavigationController.view.frame = frame
         }
 
         if (gesture.state == UIGestureRecognizerState.Ended){
@@ -255,9 +275,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
 
         if (self.sideMenuListView.isVisible == true){
             let touchPoint : CGPoint = touch.locationInView(self.view)
-            if (CGRectContainsPoint(self.sideMenuListView.contentView.frame, touchPoint)){
-                return true
-            }
+            return true
         }
 
         return false
