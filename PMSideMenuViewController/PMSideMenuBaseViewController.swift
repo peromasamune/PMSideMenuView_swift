@@ -20,22 +20,10 @@ class PMSideMenuBaseViewController: UIViewController {
         // Do any additional setup after loading the view.
 
         self.view.backgroundColor = UIColor.whiteColor()
-
-        if self.navigationController?.viewControllers.count <= 1 {
-            let sideMenuButton : UIBarButtonItem = UIBarButtonItem(title: "Menu", style: UIBarButtonItemStyle.Plain, target: self, action:"toggleSideMenuButtonDidPush:")
-            self.navigationItem.leftBarButtonItem = sideMenuButton
-        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK : - Button Actions
-    
-    func toggleSideMenuButtonDidPush(sender : UIButton){
-        sideMenu?.toggleSideMenu()
-    }
-
 }

@@ -18,17 +18,18 @@ private let ANIMATION_DURATION : Double = 0.2
 
 class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UIGestureRecognizerDelegate {
 
-    // MARK : - Properties
-    // Public
-    var currentSideMenuIndex : NSInteger = 0
+    //MARK: - Properties
+    //Public
+    var currentSideMenuIndex : NSInteger = 0 
     var delegate : PMSideMenuViewControllerDelegate!
+    var sideMenuEnabled : Bool = true
 
-    // Private
-    private var contentsNavigationController : UINavigationController = UINavigationController()
+    //Private
+    private var contentsNavigationController : UINavigationController = UINavigationController(navigationBarClass: FLNavigationBar.self, toolbarClass: nil)
     private var sideMenuListView : PMSideMenuListView! = PMSideMenuListView(frame: CGRectZero)
     private var gradientView : PMColorGradientView! = PMColorGradientView(frame: CGRectZero)
 
-    // MARK : - Initializer
+    //MARK: - Initializer
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,12 +42,15 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
 
         self.gradientView = PMColorGradientView(frame: self.view.frame)
         self.gradientView?.autoresizingMask = .FlexibleWidth | .FlexibleHeight
-        self.gradientView?.backgroundColor = UIColor.clearColor()
-        self.view.addSubview(self.gradientView!)
+//        self.gradientView?.backgroundColor = UIColor.clearColor()
+//        self.view.addSubview(self.gradientView!)
+        
+        var backgoundImageView = UIImageView(frame: self.view.bounds)
+        backgoundImageView.image = UIImage(named: FLDayAndNightUtility.converImageName("backImage"))
+        self.view.addSubview(backgoundImageView)
 
-        var bulrView = UIToolbar(frame: self.view.frame)
+        var bulrView = FLBlurView(frame: self.view.frame)
         bulrView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
-        bulrView.alpha = 0.5
         self.view.addSubview(bulrView)
 
         self.contentsNavigationController.view.frame = self.view.bounds
@@ -74,7 +78,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         leftPanGesture.delegate = self
         self.view.addGestureRecognizer(leftPanGesture)
 
-        self.reloadData()
+        self.updateAppearance()
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,7 +86,13 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         // Dispose of any resources that can be recreated.
     }
 
-    //MARK : - Class Method
+    //MARK: - Class Method
+    func updateAppearance() {
+        self.reloadData()
+        
+        //self.sideMenuListView.contentView.updateAppearance()
+    }
+    
     func transitionToSpecificViewControllerFrimSideMenuType(type : NSInteger){
         var viewController = self.getViewControllerFromSideMenuIndex(type)
 
@@ -93,9 +103,14 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         self.setContentViewController(viewController)
 
         self.currentSideMenuIndex = type
+        self.sideMenuListView.currentSelectedIndex = type
     }
 
     func setSideMenuHidden(hidden : Bool, animated : Bool){
+        
+        if self.sideMenuEnabled == false {
+            return
+        }
 
         if (hidden) {
             self.sideMenuListView?.setSideMenuHidden(hidden, animated: animated)
@@ -105,6 +120,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
                 self.transformContentViewScaleWithSideMenuHidden(hidden, animated: animated)
             })
         }else{
+            self.reloadData()
             self.transformContentViewScaleWithSideMenuHidden(hidden, animated: animated)
             let delayInSeconds = ANIMATION_DURATION * Double(NSEC_PER_SEC);
             let popTime : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds));
@@ -115,7 +131,12 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
     }
 
     func toggleSideMenu(){
-        if (self.sideMenuListView.isAnimation == true){
+        
+        if self.sideMenuEnabled == false {
+            return
+        }
+        
+        if self.sideMenuListView.isAnimation == true{
             return
         }
 
@@ -134,8 +155,12 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         }
         self.sideMenuListView.setSideMenuItems(sideMenuItemArray)
     }
+    
+    func isSideMenuAnimation() -> Bool {
+        return self.sideMenuListView.isAnimation
+    }
 
-    //MARK : - Private Method
+    //MARK: - Private Method
     private func getViewControllerFromSideMenuIndex(index : NSInteger) -> PMSideMenuBaseViewController?{
         var viewController = self.delegate.PMSideMenuViewControllerTransitionViewControllerWhenSelectedItemAtIndex(self, index: index)
         return viewController
@@ -158,7 +183,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
                     self.contentsNavigationController.view.frame = self.gradientView.frame
 
                     }, completion: { (finished : Bool) -> Void in
-
+                        
                 })
             }else{
                 self.contentsNavigationController.view.transform = CGAffineTransformIdentity
@@ -168,23 +193,36 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
             if (animated){
                 UIView.animateWithDuration(ANIMATION_DURATION, animations: { () -> Void in
 
-                    self.contentsNavigationController.view.transform = CGAffineTransformMakeScale(0.9, 0.9)
+                    self.contentsNavigationController.view.transform = CGAffineTransformMakeScale(0.7, 0.7)
+                    
+                    var frame = self.contentsNavigationController.view.frame
+                    frame.origin.x = 220
+                    self.contentsNavigationController.view.frame = frame
 
                     }, completion: { (finished : Bool) -> Void in
 
                 })
             }else{
-                self.contentsNavigationController.view.transform = CGAffineTransformMakeScale(0.9, 0.9)
+                self.contentsNavigationController.view.transform = CGAffineTransformMakeScale(0.7, 0.7)
+                
+                var frame = self.contentsNavigationController.view.frame
+                frame.origin.x = 220
+                self.contentsNavigationController.view.frame = frame
             }
         }
     }
 
     private func transformContentViewScaleWithGesture(gesture : UIPanGestureRecognizer){
+        
         if (gesture.state == UIGestureRecognizerState.Changed){
             let ratio : CGFloat = self.sideMenuListView.gestureRatio
-            let cRatio : CGFloat = (1 - ratio) * 0.1 + 0.9
+            let cRatio : CGFloat = (1 - ratio) * 0.3 + 0.7
 
             self.contentsNavigationController.view.transform = CGAffineTransformMakeScale(cRatio, cRatio)
+            
+            var frame = self.contentsNavigationController.view.frame
+            frame.origin.x = 220 * ratio
+            self.contentsNavigationController.view.frame = frame
         }
 
         if (gesture.state == UIGestureRecognizerState.Ended){
@@ -192,7 +230,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         }
     }
 
-    // MARK : - SideMenuListViewDelegate
+    // MARK: - SideMenuListViewDelegate
 
     func PMSideMenuListViewDidSelectedItem(index: NSInteger) {
 
@@ -208,7 +246,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         self.setSideMenuHidden(true, animated: true)
     }
 
-    // MARK : - Gesture Action
+    // MARK: - Gesture Action
 
     func detectRightPanGesture(gesture : UIPanGestureRecognizer){
         self.sideMenuListView.setSideMenuWithGesture(gesture)
@@ -220,10 +258,14 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
         self.transformContentViewScaleWithGesture(gesture)
     }
 
-    // MARK : - UIPanGestureRecognizerDelegate
+    // MARK: - UIPanGestureRecognizerDelegate
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
 
+        if self.sideMenuEnabled == false {
+            return false
+        }
+        
         if (self.sideMenuListView.isVisible == false){
             let touchPoint : CGPoint = touch.locationInView(self.view)
             if (touchPoint.x < 20){
@@ -233,9 +275,7 @@ class PMSideMenuViewController: UIViewController, PMSideMenuListViewDelegate, UI
 
         if (self.sideMenuListView.isVisible == true){
             let touchPoint : CGPoint = touch.locationInView(self.view)
-            if (CGRectContainsPoint(self.sideMenuListView.contentView.frame, touchPoint)){
-                return true
-            }
+            return true
         }
 
         return false

@@ -15,7 +15,7 @@ class PMCircleImageView: UIView {
     // MARK : - Properties
     // Public
     var imageBackgroundView : UIView!
-    var imageView : UIImageView!
+    var imageView : FLAsyncImageView!
 
     // MARK : - Initializer
     override init(frame: CGRect) {
@@ -31,7 +31,7 @@ class PMCircleImageView: UIView {
         imageBackgroundView.layer.borderWidth = BORDER_WIDTH
         self.addSubview(imageBackgroundView)
 
-        imageView = UIImageView(frame: CGRectMake(0, 0, imageBackgroundView.frame.size.width - BORDER_WIDTH * 3, imageBackgroundView.frame.size.height - BORDER_WIDTH * 3))
+        imageView = FLAsyncImageView(frame: CGRectMake(0, 0, imageBackgroundView.frame.size.width - BORDER_WIDTH * 3, imageBackgroundView.frame.size.height - BORDER_WIDTH * 3))
         imageView.backgroundColor = UIColor.clearColor()
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
@@ -52,10 +52,8 @@ class PMCircleImageView: UIView {
     }
 
     // MARK : - Class Method
-    func setImage(image : UIImage?){
-        if image != nil {
-            self.imageView.image = image
-        }
+    func setImage(url : String){
+        self.imageView.setImageUrl(url)
     }
 
 }
