@@ -12,18 +12,13 @@ class PMSideMenuBaseViewController: UIViewController {
 
     weak var sideMenu : PMSideMenuViewController?
 
-    // MARK : - Initializer
-
+    // MARK: - Initializer
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }

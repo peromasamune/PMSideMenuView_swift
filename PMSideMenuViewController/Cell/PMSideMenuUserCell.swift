@@ -12,22 +12,22 @@ private let LABEL_MARGIN : CGFloat = 5
 
 class PMSideMenuUserCell: UITableViewCell {
 
-    //MARK : - Property
+    //MARK: - Property
     //Public
     var iconImageView : PMCircleImageView!
     var userNameLabel : UILabel!
 
-    //MARK : - Initializer
+    //MARK: - Initializer
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        iconImageView = PMCircleImageView(frame: CGRectMake(0, 0, 118, 118))
+        iconImageView = PMCircleImageView(frame: CGRect(x:0, y:0, width:118, height:118))
         self.contentView.addSubview(iconImageView)
 
-        userNameLabel = UILabel(frame: CGRectMake(0, iconImageView.frame.origin.y + iconImageView.frame.size.height, self.contentView.frame.size.width, 20))
-        userNameLabel.backgroundColor = UIColor.clearColor()
-        userNameLabel.font = UIFont.boldSystemFontOfSize(15)
-        userNameLabel.textAlignment = NSTextAlignment.Center
+        userNameLabel = UILabel(frame: CGRect(x:0, y:iconImageView.frame.origin.y + iconImageView.frame.size.height, width: self.contentView.frame.size.width, height: 20))
+        userNameLabel.backgroundColor = .clear
+        userNameLabel.font = UIFont.boldSystemFont(ofSize: 15)
+        userNameLabel.textAlignment = .center
         self.contentView.addSubview(userNameLabel)
     }
 
@@ -37,9 +37,7 @@ class PMSideMenuUserCell: UITableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        iconImageView.center = CGPointMake(self.contentView.frame.size.width / 2, self.contentView.frame.size.height / 2)
-        userNameLabel.frame = CGRectMake(0, iconImageView.frame.origin.y + iconImageView.frame.size.height + LABEL_MARGIN, self.contentView.frame.size.width, 20)
+        iconImageView.center = CGPoint(x: self.contentView.frame.size.width / 2, y: self.contentView.frame.size.height / 2)
+        userNameLabel.frame = CGRect(x: 0, y: iconImageView.frame.origin.y + iconImageView.frame.size.height + LABEL_MARGIN, width: self.contentView.frame.size.width, height:20)
     }
-
 }

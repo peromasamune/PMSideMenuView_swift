@@ -15,20 +15,19 @@ enum PMSideMenuListItemType{
 
 class PMSideMenuListItem: NSObject {
 
-    // MARK : - Property
-    // Public
+    //MARK: - Property
+    //Public
     var title : String?
     var imageUrl : String?
     var type : PMSideMenuListItemType! = PMSideMenuListItemType.Default
     var cellHeight : CGFloat! = 0
 
-    // MARK : - Constructor
+    //MARK: - Constructor
     class func itemWith(title : String, image : String) -> PMSideMenuListItem{
-        var item : PMSideMenuListItem = PMSideMenuListItem(title: title, image: image);
-        return item
+        return PMSideMenuListItem(title: title, image: image)
     }
 
-    // MARK : - Initializer
+    //MARK: - Initializer
     init(title : String, image : String){
         super.init()
 

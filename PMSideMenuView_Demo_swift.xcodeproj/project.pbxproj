@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3052B46A1FC819AC00F65740 /* PMSideMenuBasicCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3052B4691FC819AC00F65740 /* PMSideMenuBasicCellTableViewCell.swift */; };
 		9F1C33C51A8DFE510006EFEE /* PMColorGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1C33C41A8DFE510006EFEE /* PMColorGradientView.swift */; };
 		9F1C33C71A8DFE660006EFEE /* PMColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1C33C61A8DFE660006EFEE /* PMColorModel.swift */; };
 		9F1C33CB1A8DFEA40006EFEE /* PMSideMenuBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1C33CA1A8DFEA40006EFEE /* PMSideMenuBaseViewController.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3052B4691FC819AC00F65740 /* PMSideMenuBasicCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PMSideMenuBasicCellTableViewCell.swift; path = PMSideMenuViewController/Cell/PMSideMenuBasicCellTableViewCell.swift; sourceTree = "<group>"; };
 		9F1C33C41A8DFE510006EFEE /* PMColorGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PMColorGradientView.swift; path = PMSideMenuViewController/Color/PMColorGradientView.swift; sourceTree = "<group>"; };
 		9F1C33C61A8DFE660006EFEE /* PMColorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PMColorModel.swift; path = PMSideMenuViewController/Color/PMColorModel.swift; sourceTree = "<group>"; };
 		9F1C33CA1A8DFEA40006EFEE /* PMSideMenuBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PMSideMenuBaseViewController.swift; path = PMSideMenuViewController/PMSideMenuBaseViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 		9F1C33C31A8DFE2E0006EFEE /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				3052B4691FC819AC00F65740 /* PMSideMenuBasicCellTableViewCell.swift */,
 				9F1C33CC1A8DFEDE0006EFEE /* PMSideMenuUserCell.swift */,
 			);
 			name = Cell;
@@ -269,6 +272,7 @@
 				9F1C33CF1A8DFEFC0006EFEE /* PMSideMenuListView.swift in Sources */,
 				9F1C33CD1A8DFEDE0006EFEE /* PMSideMenuUserCell.swift in Sources */,
 				9F41188A1AD2566800494CA4 /* AppDelegate.swift in Sources */,
+				3052B46A1FC819AC00F65740 /* PMSideMenuBasicCellTableViewCell.swift in Sources */,
 				9F1C33C51A8DFE510006EFEE /* PMColorGradientView.swift in Sources */,
 				9F1C33C71A8DFE660006EFEE /* PMColorModel.swift in Sources */,
 				9F3913881AD2766A00AF9E5E /* PMCircleImageView.swift in Sources */,
@@ -335,6 +339,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -369,6 +374,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

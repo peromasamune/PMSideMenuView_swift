@@ -17,8 +17,8 @@ class PMSideMenuBasicCellTableViewCell: UITableViewCell {
     //MARK: Public
     var iconImageView : UIImageView!
     var titleLabel : UILabel!
-    var defaultColor : UIColor = UIColor.whiteColor()
-    var highlightedColor : UIColor = UIColor.whiteColor()
+    var defaultColor : UIColor = .white
+    var highlightedColor : UIColor = .white
     var isCellSelected : Bool = false {
         didSet{
             self.updateAppearance()
@@ -39,13 +39,13 @@ class PMSideMenuBasicCellTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.iconImageView = UIImageView(frame: CGRectZero)
-        self.iconImageView.backgroundColor = UIColor.clearColor()
+        self.iconImageView = UIImageView(frame: .zero)
+        self.iconImageView.backgroundColor = .clear
         self.contentView.addSubview(self.iconImageView)
         
-        self.titleLabel = UILabel(frame: CGRectZero)
-        self.titleLabel.backgroundColor = UIColor.clearColor()
-        self.titleLabel.font = UIFont.systemFontOfSize(17)
+        self.titleLabel = UILabel(frame: .zero)
+        self.titleLabel.backgroundColor = .clear
+        self.titleLabel.font = UIFont.systemFont(ofSize:17)
         self.contentView.addSubview(self.titleLabel)
     }
     
@@ -55,11 +55,11 @@ class PMSideMenuBasicCellTableViewCell: UITableViewCell {
         var offsetX : CGFloat = 0.0
         
         if self.iconImageView.image != nil {
-            self.iconImageView.frame = CGRectInset(CGRectMake(LEFT_MARGIN, 0, CGRectGetHeight(self.contentView.frame), CGRectGetHeight(self.contentView.frame)), CONTENT_MARGIN, CONTENT_MARGIN)
-            offsetX += self.iconImageView.frame.origin.x + CGRectGetWidth(self.iconImageView.frame)
+            self.iconImageView.frame = CGRect(x: LEFT_MARGIN, y: 0, width: self.contentView.frame.height, height: self.contentView.frame.height).insetBy(dx: CONTENT_MARGIN, dy: CONTENT_MARGIN)
+            offsetX += self.iconImageView.frame.origin.x + self.iconImageView.frame.height
         }
         
-        self.titleLabel.frame = CGRectInset(CGRectMake(offsetX, 0, CGRectGetWidth(self.contentView.frame) - offsetX, CGRectGetHeight(self.contentView.frame)), CONTENT_MARGIN, 0)
+        self.titleLabel.frame = CGRect(x: offsetX, y: 0, width: self.contentView.frame.width - offsetX, height: self.contentView.frame.height).insetBy(dx: CONTENT_MARGIN, dy: 0)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -68,36 +68,35 @@ class PMSideMenuBasicCellTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
-    override func setHighlighted(highlighted: Bool, animated: Bool) {
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
-        
+
         if highlighted {
             self.titleLabel.textColor = self.highlightedColor
-            if self.highlightedImage == nil {
-                self.highlightedImage = FLImageUtility.imageWithColor(self.defaultImage, color: self.highlightedColor)
-            }
+            //TODO: fixit
+//            if self.highlightedImage == nil {
+//                self.highlightedImage = FLImageUtility.imageWithColor(self.defaultImage, color: self.highlightedColor)
+//            }
             self.iconImageView.image = self.highlightedImage
         }else{
             self.updateAppearance()
         }
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     //MARK: - Private Method
     private func updateAppearance() {
         if self.isCellSelected {
             self.titleLabel.textColor = self.highlightedColor
-            if self.highlightedImage == nil {
-                self.highlightedImage = FLImageUtility.imageWithColor(self.defaultImage, color: self.highlightedColor)
-            }
+            //TODO: fixit
+//            if self.highlightedImage == nil {
+//                self.highlightedImage = FLImageUtility.imageWithColor(self.defaultImage, color: self.highlightedColor)
+//            }
             self.iconImageView.image = self.highlightedImage
         }else{
             self.titleLabel.textColor = self.defaultColor

@@ -10,21 +10,21 @@ import UIKit
 
 class PMColorGradientView: UIView {
 
-    // MARK : - Property
+    // MARK: - Property
     // Public
-    var gradientLayer : CAGradientLayer?
+    var gradientLayer : CAGradientLayer!
 
-    // MARK : - Initializer
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         self.gradientLayer = CAGradientLayer()
-        self.gradientLayer?.frame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))
-        self.gradientLayer?.colors = PMColorModel.getNearRandomColorsForGradient() as [AnyObject]
-        self.gradientLayer?.startPoint = CGPointMake(0.5, 0.0)
-        self.gradientLayer?.endPoint = CGPointMake(0.5, 1.0)
+        self.gradientLayer.frame = CGRect(x: 0, y:0, width: frame.width, height: frame.height)
+        self.gradientLayer.colors = PMColorModel.getNearRandomColorsForGradient()
+        self.gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+        self.gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
 
-        self.layer.insertSublayer(self.gradientLayer, atIndex: 0)
+        self.layer.insertSublayer(self.gradientLayer, at: 0)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -33,15 +33,11 @@ class PMColorGradientView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        self.gradientLayer?.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))
+        self.gradientLayer.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
     }
     
     //MARK: - Public Method
     func reloadGradient() {
-        if self.gradientLayer != nil {
-            self.gradientLayer?.colors = PMColorModel.getNearRandomColorsForGradient() as [AnyObject]
-        }
+        self.gradientLayer?.colors = PMColorModel.getNearRandomColorsForGradient()
     }
-
 }

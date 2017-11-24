@@ -12,30 +12,30 @@ private let BORDER_WIDTH : CGFloat = 3
 
 class PMCircleImageView: UIView {
 
-    // MARK : - Properties
+    // MARK: - Properties
     // Public
     var imageBackgroundView : UIView!
-    var imageView : FLAsyncImageView!
+    var imageView : UIImageView!
 
-    // MARK : - Initializer
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
 
-        imageBackgroundView = UIView(frame: CGRectMake(0, 0, frame.size.width - BORDER_WIDTH * 2, frame.size.height - BORDER_WIDTH * 2))
-        imageBackgroundView.backgroundColor = UIColor.grayColor()
+        imageBackgroundView = UIView(frame: CGRect(x:0, y:0, width: frame.size.width - BORDER_WIDTH * 2, height: frame.size.height - BORDER_WIDTH * 2))
+        imageBackgroundView.backgroundColor = .gray
         imageBackgroundView.layer.masksToBounds = true
         imageBackgroundView.layer.cornerRadius = imageBackgroundView.frame.size.width / 2;
-        imageBackgroundView.layer.borderColor = UIColor.whiteColor().CGColor
+        imageBackgroundView.layer.borderColor = UIColor.white.cgColor
         imageBackgroundView.layer.borderWidth = BORDER_WIDTH
         self.addSubview(imageBackgroundView)
 
-        imageView = FLAsyncImageView(frame: CGRectMake(0, 0, imageBackgroundView.frame.size.width - BORDER_WIDTH * 3, imageBackgroundView.frame.size.height - BORDER_WIDTH * 3))
-        imageView.backgroundColor = UIColor.clearColor()
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: imageBackgroundView.frame.size.width - BORDER_WIDTH * 3, height: imageBackgroundView.frame.size.height - BORDER_WIDTH * 3))
+        imageView.backgroundColor = .clear
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
-        imageView.layer.borderColor = UIColor.whiteColor().CGColor
+        imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.borderWidth = BORDER_WIDTH
         self.imageBackgroundView.addSubview(imageView)
     }
@@ -47,13 +47,13 @@ class PMCircleImageView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        imageBackgroundView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2)
-        imageView.center = CGPointMake(imageBackgroundView.frame.size.width / 2, imageBackgroundView.frame.size.height / 2)
+        imageBackgroundView.center = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height / 2)
+        imageView.center = CGPoint(x: imageBackgroundView.frame.size.width / 2, y: imageBackgroundView.frame.size.height / 2)
     }
 
-    // MARK : - Class Method
-    func setImage(url : String){
-        self.imageView.setImageUrl(url)
-    }
-
+    //TODO: fixit
+    //MARK : - Class Method
+//    func setImage(url : String){
+//        self.imageView.setImageUrl(url)
+//    }
 }
